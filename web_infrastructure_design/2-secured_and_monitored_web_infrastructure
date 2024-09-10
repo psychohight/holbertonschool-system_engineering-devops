@@ -1,0 +1,38 @@
+    User
+     |
+     |--- www.foobar.com (DNS A record → IP Load Balancer)
+     |
+ Load Balancer (HAProxy with SSL termination)
+  /               \
+Firewall 1       Firewall 2
+  |                |
+ Server 1          Server 2
+ (Web, App, DB)    (Web, App, DB)
+  |
+Firewall 3
+ |
+ MySQL DB Replica
+ (Read-only)
+
+
+Firewalls: They block unauthorized access and provide protection against network threats. By implementing firewalls on each server, you restrict access to only necessary services, ensuring better security.
+
+HTTPS: Serving traffic over HTTPS ensures encrypted communication, providing confidentiality and integrity of the data transmitted between users and the website. This is crucial for security, especially when handling sensitive information.
+
+Monitoring: Monitoring tools are used to track the health, performance, and uptime of the infrastructure. They collect logs, metrics (e.g., CPU usage, memory usage), and alert when issues arise, allowing administrators to address problems quickly.
+
+Monitoring QPS (Queries Per Second): To monitor QPS, you would configure the monitoring tool to collect and analyze web server logs that track the number of incoming requests. This can help you detect performance bottlenecks and plan for scaling.
+
+Issues with This Infrastructure:
+
+SSL Termination at Load Balancer:
+
+    Issue: Terminating SSL at the load balancer means traffic between the load balancer and the servers is not encrypted. If this internal traffic is intercepted, sensitive data could be exposed.
+
+One MySQL Server for Writes:
+
+    Issue: If only one MySQL server is responsible for all writes, it can become a bottleneck. If it fails, there is no backup server to handle write operations, which can lead to data loss or downtime.
+
+Servers with All Components:
+
+    Issue: If each server contains the web server, application server, and database, it's harder to scale and manage. Performance issues in one component (e.g., the database) can affect the entire server. It's better to separate these components onto different servers to isolate potential issues.

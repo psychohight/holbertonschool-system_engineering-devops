@@ -1,0 +1,37 @@
+    Utilisateur
+        |
+        |--- www.foobar.com (DNS A record → IP Load Balancer)
+        |
+    Load balancer (HAProxy)
+     |                  |
+    |                    |
+   |                      |
+Server 1:               Server 2:
+(web server,           (web server,
+ application,           application,
+ database)              database)
+
+
+Additional server: It helps distribute the load and add redundancy. If one server fails, the second one can take over.
+
+Load balancer (HAProxy): It distributes user requests between the two servers. For example, with a round-robin algorithm, requests are sent sequentially to each server.
+
+Load balancing algorithms:
+
+    Active-Active: Both servers receive requests simultaneously, improving performance and reducing wait times.
+    
+    Active-Passive: One server handles all the requests, while the other is on standby and only takes over in case the primary server fails.
+
+Database cluster (Primary-Replica):
+
+    The Primary server is the one that receives and processes all modification (write) requests.
+    
+    The Replicas receive a copy of the data from the Primary, handle read requests, and provide redundancy in case of a failure.
+
+Issues with this infrastructure:
+
+    SPOF (Single Point of Failure): If the load balancer fails and is not redundant, the entire infrastructure becomes unusable.
+
+    Security: The lack of a firewall and HTTPS makes the system vulnerable to attacks.
+
+    Lack of monitoring: Without monitoring tools, it is difficult to detect and quickly resolve performance issues or failures.

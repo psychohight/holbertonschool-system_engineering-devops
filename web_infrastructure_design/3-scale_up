@@ -1,0 +1,22 @@
+    User
+     |
+     |--- www.foobar.com (DNS A record → IP Load Balancers)
+     |
+Load Balancer Cluster (HAProxy)
+   /       \
+ Web Server 1  Web Server 2
+     |              |
+ App Server 1    App Server 2
+     |              |
+DB Cluster (Primary-Replica)
+
+
+Why Add These Elements:
+
+    Splitting the components allows each to be scaled independently. For example, if web traffic increases, you can add more web servers without affecting the application or database.
+
+    The load balancer cluster improves redundancy, ensuring that the load balancing functionality is not a single point of failure.
+
+Issues with Previous Setup:
+
+    Having all components on the same server limits scalability and leads to performance issues as the traffic grows. By separating them, you can optimize each component independently and scale them as needed.

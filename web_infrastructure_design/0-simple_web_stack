@@ -1,0 +1,38 @@
+    Utilisateur
+        |
+        |--- www.foobar.com (DNS A record → IP 8.8.8.8)
+        |
+    Server (IP : 8.8.8.8)
+        |
+    ------------------------------
+         web server(Nginx)
+         application server
+         database (MySQL)
+    ------------------------------
+
+Server: It is a computer connected to the Internet that hosts services such as a website. In this case, it hosts Nginx, the web application, and the MySQL database.
+
+Domain name (foobar.com): It serves as a human-readable address to reach your server. A DNS record (type A) is used to link www.foobar.com to the IP address 8.8.8.8.
+
+Web server (Nginx): It handles HTTP/HTTPS requests from users and routes them to the application. Nginx receives a request from the user, asks the application to process it, and then returns the response to the client.
+
+Application server: The application is hosted here. This is where the code and logic of your website reside.
+
+Database (MySQL): It stores the structured data necessary for your application to function properly, such as user information, messages, etc.
+
+Communication protocol: The server communicates with the user via the HTTP protocol (or HTTPS for added security).
+
+Issues with this infrastructure:
+
+SPOF (Single Point of Failure): If the single server fails, the website will be inaccessible.
+
+Downtime: During updates or when deploying new versions of the code, the server must be restarted, which leads to service interruption.
+
+No scalability: With only one server, if traffic increases significantly, the server could become overloaded and make the website unavailable.
+
+
+
+
+
+
+
